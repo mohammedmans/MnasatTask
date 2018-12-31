@@ -1,11 +1,14 @@
 package com.example.mohammedmansour.task.API.Responses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
 
-public class PopularPeopleResponse{
+public class PopularPeopleResponse implements Parcelable {
 
 	@SerializedName("page")
 	private int page;
@@ -18,6 +21,25 @@ public class PopularPeopleResponse{
 
 	@SerializedName("total_results")
 	private int totalResults;
+
+	protected PopularPeopleResponse(Parcel in) {
+		page = in.readInt();
+		totalPages = in.readInt();
+		results = in.createTypedArrayList(ResultsItem.CREATOR);
+		totalResults = in.readInt();
+	}
+
+	public static final Creator<PopularPeopleResponse> CREATOR = new Creator<PopularPeopleResponse>() {
+		@Override
+		public PopularPeopleResponse createFromParcel(Parcel in) {
+			return new PopularPeopleResponse(in);
+		}
+
+		@Override
+		public PopularPeopleResponse[] newArray(int size) {
+			return new PopularPeopleResponse[size];
+		}
+	};
 
 	public void setPage(int page){
 		this.page = page;
@@ -61,4 +83,17 @@ public class PopularPeopleResponse{
 			",total_results = '" + totalResults + '\'' + 
 			"}";
 		}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(page);
+		dest.writeInt(totalPages);
+		dest.writeTypedList(results);
+		dest.writeInt(totalResults);
+	}
 }

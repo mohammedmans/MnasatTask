@@ -1,11 +1,14 @@
 package com.example.mohammedmansour.task.API.Responses;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 import com.google.gson.annotations.SerializedName;
 
 
-public class ResultsItem{
+public class ResultsItem implements Parcelable {
 
 	@SerializedName("popularity")
 	private double popularity;
@@ -24,6 +27,26 @@ public class ResultsItem{
 
 	@SerializedName("adult")
 	private boolean adult;
+
+	protected ResultsItem(Parcel in) {
+		popularity = in.readDouble();
+		name = in.readString();
+		profilePath = in.readString();
+		id = in.readInt();
+		adult = in.readByte() != 0;
+	}
+
+	public static final Creator<ResultsItem> CREATOR = new Creator<ResultsItem>() {
+		@Override
+		public ResultsItem createFromParcel(Parcel in) {
+			return new ResultsItem(in);
+		}
+
+		@Override
+		public ResultsItem[] newArray(int size) {
+			return new ResultsItem[size];
+		}
+	};
 
 	public void setPopularity(double popularity){
 		this.popularity = popularity;
@@ -85,4 +108,18 @@ public class ResultsItem{
 			",adult = '" + adult + '\'' + 
 			"}";
 		}
+
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeDouble(popularity);
+		dest.writeString(name);
+		dest.writeString(profilePath);
+		dest.writeInt(id);
+		dest.writeByte((byte) (adult ? 1 : 0));
+	}
 }

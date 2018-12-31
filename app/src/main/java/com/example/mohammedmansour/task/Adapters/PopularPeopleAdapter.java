@@ -19,8 +19,17 @@ public class PopularPeopleAdapter extends RecyclerView.Adapter<PopularPeopleAdap
 
     List<ResultsItem>resultsItems;
     Context context;
+    OnPersonClickListener onPersonClickListener;
 
-    public PopularPeopleAdapter(List<ResultsItem> resultsItems,Context context) {
+    public OnPersonClickListener getOnPersonClickListener() {
+        return onPersonClickListener;
+    }
+
+    public void setOnPersonClickListener(OnPersonClickListener onPersonClickListener) {
+        this.onPersonClickListener = onPersonClickListener;
+    }
+
+    public PopularPeopleAdapter(List<ResultsItem> resultsItems, Context context) {
         this.resultsItems = resultsItems;
         this.context = context;
     }
@@ -34,12 +43,19 @@ public class PopularPeopleAdapter extends RecyclerView.Adapter<PopularPeopleAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull customViewHolder customViewHolder, int i) {
-        ResultsItem resultsItem = resultsItems.get(i);
+    public void onBindViewHolder(@NonNull customViewHolder customViewHolder, final int i) {
+        final ResultsItem resultsItem = resultsItems.get(i);
         customViewHolder.people_name.setText((CharSequence) resultsItem.getName());
         String imgBaseUrl = "https://image.tmdb.org/t/p/w500";
         imgBaseUrl = imgBaseUrl + resultsItem.getProfilePath();
         Glide.with(context).load(imgBaseUrl).into(customViewHolder.profile_path_img);
+        customViewHolder.parent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onPersonClickListener!=null)
+                    onPersonClickListener.onPersonClick(i,resultsItem);
+            }
+        });
     }
 
     @Override
@@ -62,5 +78,8 @@ public class PopularPeopleAdapter extends RecyclerView.Adapter<PopularPeopleAdap
             profile_path_img = view.findViewById(R.id.profile_path_img);
             parent = view;
         }
+    }
+    public interface OnPersonClickListener{
+        void onPersonClick(int position , ResultsItem resultsItem);
     }
 }

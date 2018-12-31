@@ -46,6 +46,14 @@ public class MainActivity extends BaseActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
         recyclerView.setAdapter(popularPeopleAdapter);
         getPopularPeople();
+        popularPeopleAdapter.setOnPersonClickListener(new PopularPeopleAdapter.OnPersonClickListener() {
+            @Override
+            public void onPersonClick(int position, ResultsItem resultsItem) {
+                Intent intent = new Intent(activity,PersonActivity.class);
+                intent.putExtra("resultItem",resultsItem);
+                startActivity(intent);
+            }
+        });
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
