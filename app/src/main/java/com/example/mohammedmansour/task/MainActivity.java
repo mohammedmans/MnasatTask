@@ -1,5 +1,6 @@
 package com.example.mohammedmansour.task;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,7 +31,7 @@ public class MainActivity extends BaseActivity {
     private final static String api_key = "e43a6b476e90d7e81a60d04e7ab6192f";
     RecyclerView recyclerView;
     PopularPeopleAdapter popularPeopleAdapter;
-    LinearLayoutManager linearLayoutManager;
+    GridLayoutManager gridLayoutManager;
 
 
 
@@ -39,11 +41,13 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.persons);
 
         recyclerView = findViewById(R.id.popular_people_rv);
-        linearLayoutManager = new LinearLayoutManager(this);
+        int noOfcolumns = calculateNoOfColumns(this);
+        gridLayoutManager = new GridLayoutManager(this,noOfcolumns);
         popularPeopleAdapter = new PopularPeopleAdapter(null,this);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(popularPeopleAdapter);
         getPopularPeople();
         popularPeopleAdapter.setOnPersonClickListener(new PopularPeopleAdapter.OnPersonClickListener() {
@@ -78,6 +82,13 @@ public class MainActivity extends BaseActivity {
                         ShowMessage("Error",t.getLocalizedMessage());
                     }
                 });
+    }
+    public static int calculateNoOfColumns(Context context) {
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        float dpWidth = displayMetrics.widthPixels / displayMetrics.density;
+        int scalingFactor = 180;
+        int noOfColumns = (int) (dpWidth / scalingFactor);
+        return noOfColumns;
     }
 
 }

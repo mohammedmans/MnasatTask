@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Task</string>
+    <string name="app_name">Task App</string>
     <string name="action_settings">Settings</string>
-    <string name="PopularPeople">Popular People</string>
     <string name="title_activity_search">Search</string>
     <string name="title_activity_person">PersonActivity</string>
+    <string name="persons">Popular People</string>
 </resources>
