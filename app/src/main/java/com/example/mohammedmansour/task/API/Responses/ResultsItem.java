@@ -100,8 +100,8 @@ public class ResultsItem implements Parcelable {
  	public String toString(){
 		return 
 			"ResultsItem{" + 
-			"popularity = '" + popularity + '\'' + 
-			",known_for = '" + knownFor + '\'' + 
+			"popularity = '" + popularity + '\'' +
+			",known_for = '" + knownFor + '\'' +
 			",name = '" + name + '\'' + 
 			",profile_path = '" + profilePath + '\'' + 
 			",id = '" + id + '\'' + 

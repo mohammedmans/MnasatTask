@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +7,173 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".PersonActivity"
     tools:showIn="@layout/activity_person">
-    
 
-</android.support.constraint.ConstraintLayout>
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop=".5dp">
+
+        <LinearLayout
+            android:id="@+id/section1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3.5">
+
+            <LinearLayout
+                android:id="@+id/birthday_section"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/birthday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:paddingEnd="0dp"
+                    android:text="Birthday:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/birthday_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:padding="5dp"
+                    android:paddingStart="3dp"
+                    android:text="1-1-1994" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/genre_section"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/genre"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:paddingEnd="0dp"
+                    android:text="Department:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/genre_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+
+                    android:paddingStart="3dp"
+                    android:text="Action" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/section2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3.5"
+            app:layout_constraintTop_toBottomOf="@id/section1">
+
+            <LinearLayout
+                android:id="@+id/deathday_section"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/deathday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:paddingEnd="0dp"
+                    android:text="Deathday:"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/deathday_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:paddingStart="3dp"
+                    android:text="None" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/rating_section"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5"
+                android:gravity="start"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:paddingEnd="0dp"
+                    android:text="Rating:"
+                    android:textStyle="bold" />
+
+                <RatingBar
+                    android:id="@+id/rating_value"
+                    style="@style/Base.Widget.AppCompat.RatingBar.Small"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/biography"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:paddingEnd="0dp"
+            android:text="Biography:"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/section2" />
+
+        <TextView
+            android:id="@+id/biography_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="3dp"
+            android:paddingEnd="0dp"
+            android:text="Biography:"
+            app:layout_constraintTop_toBottomOf="@id/biography" />
+
+        <View
+            android:id="@+id/border"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="0dp"
+            android:background="@android:color/darker_gray"
+            app:layout_constraintTop_toBottomOf="@id/biography_tv" />
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/border">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/images_rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </GridLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

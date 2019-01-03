@@ -67,18 +67,19 @@ public class MainActivity extends BaseActivity {
         });
     }
     public void getPopularPeople(){
-
+        ShowProgressBar();
         APIManager.getServices()
                 .getPopularPeople(api_key)
                 .enqueue(new Callback<PopularPeopleResponse>() {
                     @Override
                     public void onResponse(Call<PopularPeopleResponse> call, Response<PopularPeopleResponse> response) {
-
+                        HideProgressBar();
                         popularPeopleAdapter.setUpdatedData(response.body().getResults());
                     }
 
                     @Override
                     public void onFailure(Call<PopularPeopleResponse> call, Throwable t) {
+                        HideProgressBar();
                         ShowMessage("Error",t.getLocalizedMessage());
                     }
                 });
